@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -18,12 +18,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Setup Android platform
+      - name: Add Android platform
         run: npx cap add android
 
       - name: Sync Capacitor
@@ -35,7 +34,7 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Build Debug APK
+      - name: Build APK
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleDebug
 
